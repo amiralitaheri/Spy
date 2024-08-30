@@ -21,7 +21,15 @@ const App = () => {
         </Show>
       </div>
       <footer class="text-center w-full h-fit p-4">
-        View on <a class="link link-hover">Github</a> <br />
+        View on{" "}
+        <a
+          href="https://github.com/amiralitaheri/Spy"
+          rel="noopener"
+          class="link link-hover"
+        >
+          GitHub
+        </a>{" "}
+        <br />
         Made with ❤️ by{" "}
         <a href="https://amiralitaheri.com" class="link link-hover">
           Amirali
