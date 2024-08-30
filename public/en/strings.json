@@ -1,0 +1,23 @@
+{
+  "newGame": "New game",
+  "howToPlay": "How to play",
+  "language": "Language",
+  "moreGames!": "More Games!",
+  "selectCategories" : "Select Categories",
+  "totalNumberOfPlayers" : "Total number of players",
+  "numberOfSpies" : "Number of spies",
+  "startTheGame": "Start the game",
+  "fruits-and-vegetables" : "Fruits and Vegetables",
+  "animals":  "Animals",
+  "cities":  "Cities",
+  "countries":  "Countries",
+  "foods":  "Foods",
+  "colors":  "Colors",
+  "programming-languages": "Programming Languages",
+  "youAreSpy": "You are a Spy!",
+  "showTheWord": "Show the word",
+  "iGotIt": "I got it",
+  "clickTheButtonBelowToSeeTheWord": "Click the button below to see the word.",
+  "theWordIs": "The word is",
+  "newRound": "New Round"
+}
