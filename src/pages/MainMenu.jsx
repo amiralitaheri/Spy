@@ -1,10 +1,19 @@
 import { setLanguage, t } from "../i18n.js";
 import { gotoNewGame } from "../game-logic/store.js";
+import { useRegisterSW } from "virtual:pwa-register/solid";
+import { Show } from "solid-js";
 
 const MainMenu = () => {
   let ul;
+
+  const {
+    needRefresh: [needRefresh, setNeedRefresh],
+    updateServiceWorker,
+  } = useRegisterSW();
+
   return (
     <>
+      <img class="w-1/2 mx-auto mt-4 mb-8" src="/logo.png" alt="Spy" />
       <button class="btn btn-block" onClick={() => gotoNewGame()}>
         {t("newGame")}
       </button>
@@ -39,6 +48,14 @@ const MainMenu = () => {
       <a class="btn btn-block" href="https://amiralitaheri.com/games">
         {t("moreGames!")}
       </a>
+      <Show when={needRefresh()}>
+        <button
+          class="btn btn-block btn-success animate-pulse"
+          onClick={() => updateServiceWorker(true)}
+        >
+          {t("update")}
+        </button>
+      </Show>
     </>
   );
 };
