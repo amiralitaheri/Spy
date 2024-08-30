@@ -28,6 +28,7 @@ const Game = () => {
           class={cn(
             "swap my-auto w-full cursor-default",
             showTheWord() && "swap-active",
+            !showTheWord() && "fade-in",
           )}
         >
           <div class="bg-base-300 rounded p-8 w-full text-center aspect-square flex flex-col swap-on">
