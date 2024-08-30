@@ -2,5 +2,22 @@
   "newGame": "بازی جدید",
   "howToPlay": "راهنمای بازی",
   "language": "Language",
-  "moreGames!": "بازی‌های بیشتر!"
+  "moreGames!": "بازی‌های بیشتر!",
+  "selectCategories" : "موضوع",
+  "totalNumberOfPlayers" : "تعداد کل بازیکنان",
+  "numberOfSpies" : "تعداد جاسوس‌ها",
+  "startTheGame": "شروع بازی",
+  "fruits-and-vegetables" : "میوه‌ها و سبزیجات",
+  "animals":  "حیوانات",
+  "cities":  "شهر‌ها",
+  "countries":  "کشورها",
+  "foods":  "غذا‌ها",
+  "colors":  "رنگ‌ها",
+  "programming-languages": "زبان‌های برنامه‌نویسی",
+  "youAreSpy": "شما جاسوس هستید!",
+  "showTheWord": "نمایش کلمه",
+  "iGotIt": "متوجه شدم",
+  "clickTheButtonBelowToSeeTheWord": "برای دیدن کلمه روی دکمه زیر کلیک کنید.",
+  "theWordIs": "کلمه",
+  "newRound": "راند جدید"
 }
