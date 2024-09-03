@@ -1,28 +1,15 @@
-## Usage
+<div align="center">
 
-```bash
-$ npm install # or pnpm install or yarn install
-```
+<img alt="logo" src="https://raw.githubusercontent.com/amiralitaheri/Spy/master/src/public/logo.png" width=20% height=20%>
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+# Spy
+A simple game for 3 to more than 12 players inspired from Spyfall board game.
 
-## Available Scripts
+</div>
 
-In the project directory, you can run:
+## How to play
+- [English](/HowToPlay-en.md)
+- [فارسی](/HowToPlay-fa.md)
 
-### `npm run dev`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
 
-### `npm run build`
-
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-## Deployment
-
-Learn more about deploying your application with the [documentations](https://vitejs.dev/guide/static-deploy.html)

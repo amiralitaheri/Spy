@@ -1,4 +1,4 @@
-import { setLanguage, t } from "../i18n.js";
+import { language, setLanguage, t } from "../i18n.js";
 import { gotoNewGame } from "../game-logic/store.js";
 import { useRegisterSW } from "virtual:pwa-register/solid";
 import { Show } from "solid-js";
@@ -17,7 +17,12 @@ const MainMenu = () => {
       <button class="btn btn-block" onClick={() => gotoNewGame()}>
         {t("newGame")}
       </button>
-      <button class="btn btn-block">{t("howToPlay")}</button>
+      <a
+        class="btn btn-block"
+        href={`https://github.com/amiralitaheri/Spy/blob/master/HowToPlay-${language()}.md`}
+      >
+        {t("howToPlay")}
+      </a>
       <div class="dropdown">
         <div tabIndex={0} role="button" class="btn btn-block">
           {t("Language")}
