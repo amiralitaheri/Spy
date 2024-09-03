@@ -22,6 +22,11 @@
     "vite-plugin-pwa": "^0.20.2",
     "vite-plugin-solid": "^2.7.2"
   },
+  "author": {
+    "name": "Amirali Taheri",
+    "email": "amiralitaheri64@gmail.com",
+    "url": "https://amiralitaheri.ir"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/amiralitaheri/Spy"
