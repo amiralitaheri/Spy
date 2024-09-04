@@ -81,7 +81,7 @@ class GameRoom {
     this.players.delete(id);
 
     if (this.isLeader(player.data.playerId) && this.playerCount() > 0) {
-      this.leaderId = findOldestPlayerId([...this.players.values()]);
+      this.changeLeader(findOldestPlayerId([...this.players.values()]));
     }
 
     this.broadcast({
@@ -91,7 +91,6 @@ class GameRoom {
         username: player.data.username,
       },
     });
-    this.broadcastPlayersList();
 
     return this.playerCount() === 0;
   }
@@ -122,17 +121,24 @@ class GameRoom {
     return this.players.size;
   }
 
+  changeLeader(newLeaderId: string) {
+    if (this.players.has(newLeaderId)) {
+      this.leaderId = newLeaderId;
+      this.broadcast({
+        type: "leaderChange",
+        payload: { leaderId: this.leaderId },
+      });
+    }
+  }
+
   parseMessage(ws: ServerWebSocket<PlayerInfo>, message: any) {
     if (this.isLeader(ws.data.playerId)) {
-      if (message.type === "kickPlayer") {
+      if (message.action === "kickPlayer") {
         this.removePlayer(message.payload.playerId, true);
         return true;
       }
-      if (
-        message.type === "changeLeader" &&
-        this.players.has(message.payload.playerId)
-      ) {
-        this.leaderId = message.payload.playerId;
+      if (message.action === "changeLeader") {
+        this.changeLeader(message.payload.playerId);
         return true;
       }
     }
