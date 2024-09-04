@@ -9,7 +9,7 @@ import Room from "./pages/Room.jsx";
 
 const Layout = (props) => {
   return (
-    <div class={cn("w-screen h-screen flex flex-col", language())}>
+    <div class={cn("w-full h-screen flex flex-col", language())}>
       <div class="flex flex-col flex-grow m-4 p-8 bg-base-100 gap-4 rounded-xl min-w-96 mx-auto">
         {props.children}
       </div>

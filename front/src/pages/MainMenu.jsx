@@ -1,7 +1,12 @@
 import { language, setLanguage, t } from "../i18n.js";
-import { gotoNewGame } from "../game-logic/store.js";
 import { useRegisterSW } from "virtual:pwa-register/solid";
-import { Show } from "solid-js";
+import { Show, createResource } from "solid-js";
+import { cn } from "../utils.js";
+
+const fetchApiHealthCheck = async () => {
+  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/health`);
+  return await response.text();
+};
 
 const MainMenu = () => {
   let ul;
@@ -11,15 +16,30 @@ const MainMenu = () => {
     updateServiceWorker,
   } = useRegisterSW();
 
+  const [data] = createResource(fetchApiHealthCheck);
+
   return (
     <>
       <img class="w-1/2 mx-auto mt-4 mb-8" src="/logo.png" alt="Spy" />
-      <button class="btn btn-block" onClick={() => gotoNewGame()}>
-        {t("newGame")}
-      </button>
+      <a
+        class={cn(
+          "btn btn-block",
+          (data.loading || data.error) && "btn-disabled",
+        )}
+        href={data() ? "/r" : ""}
+      >
+        <Show when={data.loading}>
+          <span class="loading loading-spinner"></span>
+        </Show>
+        {t("onlineGame")}
+      </a>
+      <a class="btn btn-block" href="/new-game">
+        {t("offlineGame")}
+      </a>
       <a
         class="btn btn-block"
         href={`https://github.com/amiralitaheri/Spy/blob/master/HowToPlay-${language()}.md`}
+        target="_blank"
       >
         {t("howToPlay")}
       </a>

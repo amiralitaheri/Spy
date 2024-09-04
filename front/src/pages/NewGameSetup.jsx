@@ -2,6 +2,7 @@ import store, { startNewGame } from "../game-logic/store.js";
 import { createSignal, For } from "solid-js";
 import { getWords, t } from "../i18n.js";
 import { createStore, unwrap } from "solid-js/store";
+import { useNavigate } from "@solidjs/router";
 
 const NewGameSetup = () => {
   const [numberOfPlayers, setNumberOfPlayers] = createSignal(
@@ -9,6 +10,7 @@ const NewGameSetup = () => {
   );
   const [numberOfSpies, setNumberOfSpies] = createSignal(store.numberOfSpies);
   const [categories, setCategories] = createStore(unwrap(store.wordCategories));
+  const navigate = useNavigate();
 
   return (
     <div class="form-control w-full flex flex-col flex-grow p-4 gap-4">
@@ -80,6 +82,7 @@ const NewGameSetup = () => {
         class="btn btn-primary w-full"
         disabled={categories.length === 0}
         onClick={() => {
+          navigate("/game");
           startNewGame({
             wordCategories: categories,
             numberOfSpies: numberOfSpies(),
