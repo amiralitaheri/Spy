@@ -45,7 +45,7 @@ class SpyGameRoom extends GameRoom {
       return true;
     }
     if (this.isLeader(ws.data.playerId)) {
-      if (message.type === "config") {
+      if (message.action === "config") {
         this.setGameConfig({
           language: message.payload.language,
           categories: message.payload.categories,
@@ -53,7 +53,7 @@ class SpyGameRoom extends GameRoom {
         });
         return true;
       }
-      if (message.type === "play") {
+      if (message.action === "play") {
         this.dealRoles();
         return true;
       }
