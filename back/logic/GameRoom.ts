@@ -51,19 +51,6 @@ class GameRoom {
       this.leaderId = ws.data.playerId;
     }
 
-    ws.send(
-      JSON.stringify({
-        type: "roomInfo",
-        payload: {
-          roomId: this.roomId,
-          players: [...this.players.values()].map((player) => ({
-            id: player.data.playerId,
-            username: player.data.username,
-          })),
-        },
-      }),
-    );
-
     this.broadcast({
       type: "playerJoined",
       payload: {
@@ -71,7 +58,21 @@ class GameRoom {
         username: ws.data.username,
       },
     });
-    // this.broadcastPlayersList();
+
+    ws.send(
+      JSON.stringify({
+        type: "roomInfo",
+        payload: {
+          roomId: this.roomId,
+          playerId: ws.data.playerId,
+          players: [...this.players.values()].map((player) => ({
+            id: player.data.playerId,
+            username: player.data.username,
+          })),
+          leaderId: this.leaderId,
+        },
+      }),
+    );
   }
 
   removePlayer(id: string, kick = false) {
