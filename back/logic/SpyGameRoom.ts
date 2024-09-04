@@ -112,27 +112,15 @@ class SpyGameRoom extends GameRoom {
     const roles = this.createRoleArray();
     const word = this.getWord();
     for (let i = 0; i < roles.length; i++) {
-      if (roles[i]) {
-        players[i].send(
-          JSON.stringify({
-            type: "word",
-            payload: {
-              word: null,
-              round: this.playedWords.length,
-            },
-          }),
-        );
-      } else {
-        players[i].send(
-          JSON.stringify({
-            type: "word",
-            payload: {
-              word,
-              round: this.playedWords.length,
-            },
-          }),
-        );
-      }
+      players[i].send(
+        JSON.stringify({
+          type: "word",
+          payload: {
+            word: roles[i] ? null : word,
+            round: this.playedWords.length,
+          },
+        }),
+      );
     }
   }
 }
