@@ -2,7 +2,6 @@ import { createStore } from "solid-js/store";
 import { getWords } from "../i18n.js";
 
 const [store, setStore] = createStore({
-  currentPage: "/",
   numberOfPlayers: 4,
   numberOfSpies: 1,
   roleArray: [], //IsSpyArray
@@ -60,9 +59,7 @@ const createRoleArray = ({ numberOfPlayers, numberOfSpies }) => {
 };
 
 const startNewGame = ({ wordCategories, numberOfPlayers, numberOfSpies }) => {
-  history.pushState("/game", null, "/game");
   setStore({
-    currentPage: "/game",
     wordCategories,
     numberOfPlayers,
     numberOfSpies,
@@ -70,11 +67,6 @@ const startNewGame = ({ wordCategories, numberOfPlayers, numberOfSpies }) => {
     roleArray: createRoleArray({ numberOfPlayers, numberOfSpies }),
   });
   saveState();
-};
-
-const gotoNewGame = () => {
-  history.pushState("/new-game", null, "/new-game");
-  setStore("currentPage", "/new-game");
 };
 
 const newRound = () => {
@@ -88,11 +80,6 @@ const newRound = () => {
   saveState();
 };
 
-window.addEventListener("popstate", (event) => {
-  setStore("currentPage", event.state);
-  saveState();
-});
-
-export { gotoNewGame, startNewGame, newRound };
+export { startNewGame, newRound };
 
 export default store;
