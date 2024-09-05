@@ -2,6 +2,7 @@ import GameRoom, { type PlayerInfo } from "./GameRoom.js";
 import wordsFa from "../words/fa.json";
 import wordsEn from "../words/en.json";
 import type { ServerWebSocket } from "bun";
+import logger from "../logger.ts";
 
 type Language = "fa" | "en";
 const LANGUAGES = ["fa", "en"];
@@ -129,6 +130,7 @@ class SpyGameRoom extends GameRoom {
         }),
       );
     }
+    logger.info("play");
   }
 
   onJoinData() {

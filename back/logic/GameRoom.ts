@@ -1,4 +1,5 @@
 import type { ServerWebSocket } from "bun";
+import logger from "../logger.ts";
 
 const isValidUsername = (username?: string) =>
   username && /\w{2,16}$/.test(username);
@@ -35,6 +36,7 @@ class GameRoom {
     id: string;
     broadcast: (message: string) => any;
   }) {
+    logger.info("new room created");
     this.players = new Map();
     this.roomId = id;
     this._broadcast = broadcast;
@@ -65,6 +67,9 @@ class GameRoom {
         payload: { playerId: ws.data.playerId, ...this.onJoinData() },
       }),
     );
+    logger.info("new player joined", {
+      playerCount: this.playerCount(),
+    });
   }
 
   removePlayer(id: string, kick = false) {
