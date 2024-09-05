@@ -1,6 +1,6 @@
 import GameRoom, { type PlayerInfo } from "./GameRoom.js";
-import wordsFa from "../../front/public/fa/words.json";
-import wordsEn from "../../front/public/en/words.json";
+import wordsFa from "../words/fa.json";
+import wordsEn from "../words/en.json";
 import type { ServerWebSocket } from "bun";
 
 type Language = "fa" | "en";

@@ -37,6 +37,7 @@
   "config": "تنظیمات",
   "categories": "موضوعات",
   "edit": "تغییر",
+  "editConfig": "تغییر تنظیمات",
   "auto": "خودکار",
   "shouldBeMoreThanTwo": "باید بیشتر از 2 باشد.",
   "usernameError": "نام کاربری باید بین 3 تا 16 کاراکتر باشد.",

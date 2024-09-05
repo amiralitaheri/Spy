@@ -36,6 +36,7 @@
   "leave": "Leave",
   "config": "Config",
   "edit": "Edit",
+  "editConfig": "Edit config",
   "auto": "Auto",
   "categories": "Categories",
   "shouldBeMoreThanTwo": "Should be more than 2.",

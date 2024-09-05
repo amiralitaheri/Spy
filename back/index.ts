@@ -4,6 +4,14 @@ import SpyGameRoom from "./logic/SpyGameRoom.ts";
 
 const rooms = new Map<string, GameRoom>();
 
+const shortRandomId = () => {
+  let id;
+  do {
+    id = randomUUID().split("-")[0];
+  } while (rooms.has(id));
+  return id;
+};
+
 const server = Bun.serve<PlayerInfo>({
   fetch(request, server) {
     const url = new URL(request.url);
@@ -12,16 +20,19 @@ const server = Bun.serve<PlayerInfo>({
         data: {
           createdAt: Date.now(),
           roomId:
-            new URL(request.url).searchParams.get("roomId") || randomUUID(),
+            new URL(request.url).searchParams.get("roomId") || shortRandomId(),
           username: new URL(request.url).searchParams.get("username"),
-          playerId: randomUUID(),
+          playerId: shortRandomId(),
         },
       });
       return success
         ? undefined
         : new Response("WebSocket upgrade error", { status: 400 });
     }
-    if (url.pathname === "/health") return new Response("alive!");
+    if (url.pathname === "/health")
+      return new Response("alive!", {
+        headers: { "Access-Control-Allow-Origin": "http://localhost:5173" },
+      });
     return new Response("404!", { status: 404 });
   },
   websocket: {
