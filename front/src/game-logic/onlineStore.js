@@ -2,18 +2,24 @@ import { createStore } from "solid-js/store";
 
 let ws;
 
-const [store, setStore] = createStore({
+let messageQueue = [];
+
+const Defaults = {
   players: [],
   // logs: [],
   leaderId: "",
   roomId: "",
-  language: "",
-  categories: [],
   numberOfSpies: 0,
   word: "",
   round: 0,
-  username: "",
   playerId: "",
+};
+
+const [store, setStore] = createStore({
+  language: "",
+  categories: [],
+  username: "",
+  ...Defaults,
 });
 
 const parseMessage = ({ type, payload }) => {
@@ -59,11 +65,16 @@ const _connect = ({ roomId, username }) => {
   ws = new WebSocket(
     `${import.meta.env.VITE_API_WS_URL}/?username=${username}&roomId=${roomId || ""}`,
   );
+
   ws.addEventListener("message", (event) => {
     parseMessage(JSON.parse(event.data));
   });
 
-  ws.addEventListener("open", (event) => {});
+  ws.addEventListener("open", (event) => {
+    while (messageQueue.length) {
+      ws.send(messageQueue.shift());
+    }
+  });
 
   ws.addEventListener("close", (event) => {});
 
@@ -78,12 +89,16 @@ const joinRoom = () => {
 };
 
 const setConfig = ({ language, categories, numberOfSpies }) => {
-  ws.send(
-    JSON.stringify({
-      action: "config",
-      payload: { language, categories, numberOfSpies },
-    }),
-  );
+  setStore({ language, categories, numberOfSpies });
+  const message = JSON.stringify({
+    action: "config",
+    payload: { language, categories, numberOfSpies },
+  });
+  if (ws && ws.readyState === ws.OPEN) {
+    ws.send(message);
+  } else {
+    messageQueue.push(message);
+  }
 };
 
 const setLeader = (playerId) => {
@@ -121,8 +136,9 @@ const setRoomId = (roomId) => {
   setStore("roomId", roomId);
 };
 
-const cleanup = () => {
+const onLeave = () => {
   ws && ws.close();
+  setStore(Defaults);
 };
 
 export {
@@ -131,7 +147,7 @@ export {
   setLeader,
   play,
   kickPlayer,
-  cleanup,
+  onLeave,
   setUsername,
   setRoomId,
 };
