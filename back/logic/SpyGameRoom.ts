@@ -97,7 +97,7 @@ class SpyGameRoom extends GameRoom {
     return word;
   }
 
-  private createRoleArray() {
+  private createRoleArray(): [boolean[], number] {
     const numberOfSpies =
       this.numberOfSpies || Math.max(Math.floor(this.playerCount() / 4), 1);
     const roleArray = new Array(this.playerCount()).fill(false);
@@ -110,12 +110,12 @@ class SpyGameRoom extends GameRoom {
       }
       i++;
     }
-    return roleArray;
+    return [roleArray, numberOfSpies];
   }
 
   dealRoles() {
     const players = [...this.players.values()];
-    const roles = this.createRoleArray();
+    const [roles, numberOfSpies] = this.createRoleArray();
     const word = this.getWord();
     for (let i = 0; i < roles.length; i++) {
       players[i].send(
@@ -124,6 +124,7 @@ class SpyGameRoom extends GameRoom {
           payload: {
             word: roles[i] ? null : word,
             round: this.playedWords.length,
+            numberOfSpies,
           },
         }),
       );
