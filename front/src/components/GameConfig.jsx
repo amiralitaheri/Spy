@@ -1,5 +1,5 @@
 import { For, Show } from "solid-js";
-import { getWords, t } from "../i18n.js";
+import { getCategories, t } from "../i18n.js";
 import { createStore, unwrap } from "solid-js/store";
 import { cn } from "../utils.js";
 
@@ -48,47 +48,57 @@ const GameConfig = (props) => {
           </Show>
         </div>
       </Show>
+      <Show when={!props.hide.includes("language")}>
+        <div class="flex flex-col">
+          <label class="label font-bold">{t("selectLanguage")}</label>
+          <select
+            class="select select-bordered w-full"
+            onChange={(e) => {
+              setStore("language", e.target.value);
+            }}
+          >
+            <option>fa</option>
+            <option>en</option>
+          </select>
+        </div>
+      </Show>
+
       <Show when={!props.hide.includes("categories")}>
         <div class="flex flex-grow flex-col">
           <label class="label label-text font-bold">
             {t("selectCategories")}
           </label>
           <div class="h-4 flex-grow overflow-y-auto">
-            <Show
-              when={!getWords.loading}
-              fallback={<span class="loading loading-spinner" />}
-            >
-              <For each={Object.keys(getWords())}>
-                {(category) => (
-                  <label class="label cursor-pointer">
-                    <span class="label-text">{t(category)}</span>
-                    <input
-                      onChange={(event) => {
-                        if (event.currentTarget.checked) {
-                          setStore(
-                            "categories",
-                            store.categories.length,
-                            event.target.value,
-                          );
-                        } else {
-                          setStore("categories", (prev) =>
-                            prev.filter((c) => c !== event.target.value),
-                          );
-                        }
-                      }}
-                      value={category}
-                      type="checkbox"
-                      checked={
-                        store.categories.includes(category)
-                          ? "checked"
-                          : undefined
+            <For each={getCategories(store.language)}>
+              {(category) => (
+                <label class="label cursor-pointer">
+                  <span class="label-text">{t(category)}</span>
+                  <input
+                    onChange={(event) => {
+                      if (event.currentTarget.checked) {
+                        setStore(
+                          "categories",
+                          store.categories.length,
+                          event.target.value,
+                        );
+                      } else {
+                        setStore("categories", (prev) =>
+                          prev.filter((c) => c !== event.target.value),
+                        );
                       }
-                      class="checkbox-primary checkbox"
-                    />
-                  </label>
-                )}
-              </For>
-            </Show>
+                    }}
+                    value={category}
+                    type="checkbox"
+                    checked={
+                      store.categories.includes(category)
+                        ? "checked"
+                        : undefined
+                    }
+                    class="checkbox-primary checkbox"
+                  />
+                </label>
+              )}
+            </For>
           </div>
         </div>
       </Show>

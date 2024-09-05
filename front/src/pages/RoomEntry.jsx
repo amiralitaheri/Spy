@@ -17,7 +17,7 @@ const RoomEntry = () => {
     <GameConfig
       defaults={{
         username: onlineStore.username,
-        language: onlineStore.language,
+        language: onlineStore.language || language(),
         numberOfSpies: onlineStore.numberOfSpies,
         categories: unwrap(onlineStore.categories),
       }}

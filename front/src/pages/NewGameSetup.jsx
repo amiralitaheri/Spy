@@ -1,5 +1,5 @@
 import store, { startNewGame } from "../game-logic/store.js";
-import { t } from "../i18n.js";
+import { language, t } from "../i18n.js";
 import { unwrap } from "solid-js/store";
 import { useNavigate } from "@solidjs/router";
 import GameConfig from "../components/GameConfig.jsx";
@@ -9,8 +9,9 @@ const NewGameSetup = () => {
 
   return (
     <GameConfig
-      hide={["username"]}
+      hide={["username", "language"]}
       defaults={{
+        language: language(),
         numberOfPlayers: store.numberOfPlayers,
         numberOfSpies: store.numberOfSpies,
         categories: unwrap(store.wordCategories),
