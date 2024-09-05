@@ -123,6 +123,15 @@ class SpyGameRoom extends GameRoom {
       );
     }
   }
+
+  onJoinData() {
+    return {
+      ...super.onJoinData(),
+      language: this.language,
+      categories: this.categories,
+      numberOfSpies: this.numberOfSpies,
+    };
+  }
 }
 
 export default SpyGameRoom;

@@ -62,15 +62,7 @@ class GameRoom {
     ws.send(
       JSON.stringify({
         type: "roomInfo",
-        payload: {
-          roomId: this.roomId,
-          playerId: ws.data.playerId,
-          players: [...this.players.values()].map((player) => ({
-            id: player.data.playerId,
-            username: player.data.username,
-          })),
-          leaderId: this.leaderId,
-        },
+        payload: { playerId: ws.data.playerId, ...this.onJoinData() },
       }),
     );
   }
@@ -143,6 +135,17 @@ class GameRoom {
       }
     }
     return false;
+  }
+
+  onJoinData() {
+    return {
+      roomId: this.roomId,
+      players: [...this.players.values()].map((player) => ({
+        id: player.data.playerId,
+        username: player.data.username,
+      })),
+      leaderId: this.leaderId,
+    };
   }
 }
 
