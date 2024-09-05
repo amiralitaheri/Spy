@@ -5,6 +5,7 @@ import type { ServerWebSocket } from "bun";
 
 type Language = "fa" | "en";
 const LANGUAGES = ["fa", "en"];
+const DefaultLanguage: Language = "fa";
 
 class SpyGameRoom extends GameRoom {
   private playedWords: string[];
@@ -15,7 +16,7 @@ class SpyGameRoom extends GameRoom {
   constructor(args: any) {
     super(args);
     this.playedWords = [];
-    this.language = "en";
+    this.language = DefaultLanguage;
     this.categories = [];
     this.numberOfSpies = 0;
   }
@@ -29,14 +30,19 @@ class SpyGameRoom extends GameRoom {
     categories: string[];
     numberOfSpies: number;
   }) {
-    // TODO: validate
+    this.language = LANGUAGES.includes(language) ? language : DefaultLanguage;
     const validCategories = Object.keys(this.getWords());
-    this.language = LANGUAGES.includes(language) ? language : "fa";
     this.categories = categories.filter((c) => validCategories.includes(c));
-    this.numberOfSpies = numberOfSpies;
+    this.numberOfSpies =
+      !isNaN(numberOfSpies) && numberOfSpies > 0 ? numberOfSpies : 0;
+
     this.broadcast({
       type: "config",
-      payload: { language, categories, numberOfSpies },
+      payload: {
+        language: this.language,
+        categories: this.categories,
+        numberOfSpies: this.numberOfSpies,
+      },
     });
   }
 
