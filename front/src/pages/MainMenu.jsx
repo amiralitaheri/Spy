@@ -20,7 +20,7 @@ const MainMenu = () => {
 
   return (
     <>
-      <img class="w-1/2 mx-auto mt-4 mb-8" src="/logo.png" alt="Spy" />
+      <img class="mx-auto mb-8 mt-4 w-1/2" src="/logo.png" alt="Spy" />
       <a
         class={cn(
           "btn btn-block",
@@ -50,7 +50,7 @@ const MainMenu = () => {
         <ul
           tabIndex={0}
           ref={ul}
-          class="dropdown-content menu bg-base-100 rounded-box z-[1] w-full p-2 shadow"
+          class="menu dropdown-content z-[1] w-full rounded-box bg-base-100 p-2 shadow"
         >
           <li
             onClick={() => {
@@ -75,7 +75,7 @@ const MainMenu = () => {
       </a>
       <Show when={needRefresh()}>
         <button
-          class="btn btn-block btn-success animate-pulse"
+          class="btn btn-success btn-block animate-pulse"
           onClick={() => updateServiceWorker(true)}
         >
           {t("update")}

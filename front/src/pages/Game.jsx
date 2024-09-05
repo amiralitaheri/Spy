@@ -31,18 +31,18 @@ const Game = () => {
             !showTheWord() && "fade-in",
           )}
         >
-          <div class="bg-base-300 rounded p-8 w-full text-center aspect-square flex flex-col swap-on">
+          <div class="swap-on flex aspect-square w-full flex-col rounded bg-base-300 p-8 text-center">
             <Show when={store.roleArray[playerIndex()]}>
               <div class="my-auto">{t("youAreSpy")}</div>
             </Show>
 
             <Show when={!store.roleArray[playerIndex()]}>
               <div>{t("theWordIs")}</div>
-              <div class="font-bold text-4xl m-auto">{store.word}</div>
+              <div class="m-auto text-4xl font-bold">{store.word}</div>
             </Show>
           </div>
 
-          <div class="bg-base-300 rounded p-8 w-full text-center aspect-square flex flex-col swap-off">
+          <div class="swap-off flex aspect-square w-full flex-col rounded bg-base-300 p-8 text-center">
             <div class="my-auto">{t("clickTheButtonBelowToSeeTheWord")}</div>
           </div>
         </div>
