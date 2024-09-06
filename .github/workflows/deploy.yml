@@ -1,0 +1,41 @@
+name: "deploy"
+
+on:
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{github.repository_owner}}/spy:latest
+
+jobs:
+  publish:
+    name: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Login
+        run: echo ${{secrets.GITHUB_TOKEN}} | docker login ghcr.io -u ${{github.actor}} --password-stdin
+
+      - name: Build and Publish
+        run: |
+          docker build . --tag ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
+          docker push ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: install ssh keys
+        run: |
+          install -m 600 /dev/null ~/.ssh/id_rsa
+          echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{secrets.SERVER_IP}} > ~/.ssh/known_hosts
+      - name: connect and pull
+        run: |
+          scp docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/${{ secrets.SERVER_WORK_DIR }}/docker-compose.yml
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "cd ${{ secrets.SERVER_WORK_DIR }} && docker-compose pull && docker-compose up --force-recreate --build -d && exit"
+      - name: cleanup
+        run: rm -rf ~/.ssh

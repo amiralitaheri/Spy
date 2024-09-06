@@ -36,3 +36,7 @@ COPY --from=prerelease /usr/src/app/ .
 USER bun
 EXPOSE 3000/tcp
 ENTRYPOINT [ "bun", "run", "index.ts" ]
+
+
+#docker build --pull -t spy .
+#docker run -d -p 3000:3000 --restart=always spy
