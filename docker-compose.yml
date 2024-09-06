@@ -2,6 +2,7 @@ version: '3.6'
 
 services:
   spy_app:
+    env_file: .env
     container_name: spy_app
     image: ghcr.io/amiralitaheri/spy
     restart: always
