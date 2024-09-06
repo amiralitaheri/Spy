@@ -1,10 +1,19 @@
 version: '3.6'
 
 services:
-  spy_app:
+  spy-app:
     env_file: .env
-    container_name: spy_app
+    container_name: spy-app
     image: ghcr.io/amiralitaheri/spy
     restart: always
     ports:
-      - "3000:3000"
+      - "80:3000"
+    networks:
+      main_network:
+        ipv4_address: 192.0.0.20
+
+networks:
+  main_network:
+    name: main_network
+    external: true
+    driver: bridge
