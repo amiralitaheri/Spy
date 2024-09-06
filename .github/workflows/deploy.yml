@@ -28,6 +28,7 @@ jobs:
     needs: publish
 
     steps:
+      - uses: actions/checkout@v4
       - name: install ssh keys
         run: |
           mkdir -p ~/.ssh
