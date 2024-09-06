@@ -30,10 +30,10 @@ jobs:
     steps:
       - name: install ssh keys
         run: |
-          eval $(ssh-agent -s)
-          echo "${{secrets.SSH_PRIVATE_KEY_BASE64}}" | base64 -d | ssh-add - > /dev/null
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{secrets.SERVER_IP}} > ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
       - name: connect and pull
