@@ -31,7 +31,7 @@ jobs:
       - name: install ssh keys
         run: |
           eval $(ssh-agent -s)
-          echo "${{secrets.SSH_PRIVATE_KEY}}" | ssh-add - > /dev/null
+          echo "${{secrets.SSH_PRIVATE_KEY_BASE64}}" | base64 -d | ssh-add - > /dev/null
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           ssh-keyscan -H ${{secrets.SERVER_IP}} > ~/.ssh/known_hosts
