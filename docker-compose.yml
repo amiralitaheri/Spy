@@ -6,8 +6,6 @@ services:
     container_name: spy-app
     image: ghcr.io/amiralitaheri/spy
     restart: always
-    ports:
-      - "80:3000"
     networks:
       main_network:
         ipv4_address: 192.0.0.20
