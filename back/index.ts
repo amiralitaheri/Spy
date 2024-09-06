@@ -31,7 +31,9 @@ const server = Bun.serve<PlayerInfo>({
     }
     if (url.pathname === "/health")
       return new Response("alive!", {
-        headers: { "Access-Control-Allow-Origin": "http://localhost:5173" },
+        headers: {
+          "Access-Control-Allow-Origin": request.headers.get("origin") || "",
+        },
       });
     return new Response("404!", { status: 404 });
   },
