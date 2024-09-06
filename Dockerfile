@@ -1,9 +1,8 @@
-LABEL description=""
-
 # use the official Bun image
 # see all versions at https://hub.docker.com/r/oven/bun/tags
 FROM oven/bun:alpine AS base
 WORKDIR /usr/src/app
+LABEL description=""
 
 # install dependencies into temp directory
 # this will cache them and speed up future builds
