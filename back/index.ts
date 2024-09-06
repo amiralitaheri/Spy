@@ -29,12 +29,7 @@ const server = Bun.serve<PlayerInfo>({
         ? undefined
         : new Response("WebSocket upgrade error", { status: 400 });
     }
-    if (url.pathname === "/health")
-      return new Response("alive!", {
-        headers: {
-          "Access-Control-Allow-Origin": request.headers.get("origin") || "",
-        },
-      });
+    if (url.pathname === "/health") return new Response("alive!");
     return new Response("404!", { status: 404 });
   },
   websocket: {
