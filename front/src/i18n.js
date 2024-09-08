@@ -1,6 +1,13 @@
 import { createResource, createSignal } from "solid-js";
 
-const [language, setLanguage] = createSignal("en");
+const [language, _setLanguage] = createSignal(
+  localStorage.getItem("language") || "fa",
+);
+
+const setLanguage = (lang) => {
+  _setLanguage(lang);
+  localStorage.setItem("language", lang);
+};
 
 const fetchStrings = async (lang) => {
   const response = await fetch(`/strings/${lang}.json`);
