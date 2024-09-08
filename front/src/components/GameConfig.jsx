@@ -24,13 +24,15 @@ const GameConfig = (props) => {
   };
 
   return (
-    <form class="form-control flex w-full flex-grow flex-col gap-4 p-4">
+    <form class="form-control flex w-full flex-grow flex-col gap-4">
       <Show when={!props.hide.includes("username")}>
         <div class="flex flex-col">
-          <label class="label font-bold">{t("enterAUsername")}</label>
+          <label class="label label-text font-bold">
+            {t("enterAUsername")}
+          </label>
           <input
             class={cn(
-              "input input-bordered w-full",
+              "input input-sm input-bordered w-full sm:input-md",
               store.usernameError && "input-error",
             )}
             minLength={2}
@@ -50,9 +52,11 @@ const GameConfig = (props) => {
       </Show>
       <Show when={!props.hide.includes("language")}>
         <div class="flex flex-col">
-          <label class="label font-bold">{t("selectLanguage")}</label>
+          <label class="label label-text font-bold">
+            {t("selectLanguage")}
+          </label>
           <select
-            class="select select-bordered w-full"
+            class="select select-bordered select-sm w-full sm:select-md"
             onChange={(e) => {
               setStore("language", e.target.value);
             }}
@@ -94,7 +98,7 @@ const GameConfig = (props) => {
                         ? "checked"
                         : undefined
                     }
-                    class="checkbox-primary checkbox"
+                    class="checkbox-primary checkbox checkbox-sm sm:checkbox-md"
                   />
                 </label>
               )}
@@ -110,7 +114,7 @@ const GameConfig = (props) => {
           <input
             type="number"
             class={cn(
-              "input input-bordered w-full",
+              "input input-sm input-bordered w-full sm:input-md",
               store.numberOfPlayersError && "input-error",
             )}
             value={store.numberOfPlayers}
@@ -134,7 +138,7 @@ const GameConfig = (props) => {
           <input
             type="number"
             class={cn(
-              "input input-bordered w-full",
+              "input input-sm input-bordered w-full sm:input-md",
               store.numberOfSpiesError && "input-error",
             )}
             value={store.numberOfSpies}
