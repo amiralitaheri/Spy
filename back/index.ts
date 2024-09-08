@@ -22,7 +22,7 @@ const server = Bun.serve<PlayerInfo>({
           roomId:
             new URL(request.url).searchParams.get("roomId") || shortRandomId(),
           username: new URL(request.url).searchParams.get("username"),
-          playerId: shortRandomId(),
+          playerId: randomUUID(),
         },
       });
       return success
