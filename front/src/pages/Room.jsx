@@ -106,7 +106,7 @@ const Room = () => {
             </ul>
             <Show when={isLeader()}>
               <button
-                class="btn btn-outline btn-sm absolute right-2 top-2"
+                class="btn btn-outline btn-sm absolute end-2 top-2"
                 onClick={() => {
                   configModal.showModal();
                 }}
